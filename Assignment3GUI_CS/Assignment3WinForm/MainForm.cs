@@ -12,12 +12,34 @@ namespace Assignment3WinForm;
 
 public partial class MainForm : Form
 {
+    private Storage storage;
+
+    private Producer producer1;
+    private Producer producer2;
+    private Producer producer3;
+
+    private Consumer consumer1;
+    private Consumer consumer2;
+    private Consumer consumer3;
+
+    // Producer threads
+    private Thread pThread1;
+    private Thread pThread2;
+    private Thread pThread3;
+
+    // Consumer threads
+    private Thread cThread1;
+    private Thread cThread2;
+    private Thread cThread3;
+
     /// <summary>
     /// Constructor.
     /// </summary>
     public MainForm()
     {
         InitializeComponent();
+
+        storage = new Storage(); // Create a new storage instance
     }
 
     /// <summary>
