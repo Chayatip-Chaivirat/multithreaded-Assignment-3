@@ -53,7 +53,17 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void btnStartGenProd_Click(object sender, EventArgs e)
     {
+        // Prevent multiple starts
+        if (pThread1 == null || !pThread1.IsAlive)
+        {
+            producer1 = new Producer(storage, itemArray); // Create a new producer instance with the storage and product array
 
+            pThread1 = new Thread(producer1.Run); // Create a new thread for the producer's Run method
+
+            pThread1.Start();
+
+            MessageBox.Show("Producer 1 started");
+        }
     }
 
     /// <summary>
@@ -83,7 +93,9 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void btnStopGenProduct_Click(object sender, EventArgs e)
     {
+        producer1?.Stop();
 
+        MessageBox.Show("Producer 1 stopped");
     }
 
     /// <summary>
