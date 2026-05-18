@@ -32,6 +32,9 @@ public partial class MainForm : Form
     private Thread cThread2;
     private Thread cThread3;
 
+    // Product array to be used by producers
+    private Product[] itemArray;
+
     /// <summary>
     /// Constructor.
     /// </summary>
@@ -40,6 +43,7 @@ public partial class MainForm : Form
         InitializeComponent();
 
         storage = new Storage(); // Create a new storage instance
+        itemArray = Product.CreateTestProducts(); // Initialize the product array
     }
 
     /// <summary>
