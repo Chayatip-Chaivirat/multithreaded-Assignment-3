@@ -62,7 +62,7 @@ public partial class MainForm : Form
 
             pThread1.Start();
 
-            MessageBox.Show("Producer 1 started");
+            lblIcaStatus.Text = "PRODUCING";
         }
     }
 
@@ -78,7 +78,7 @@ public partial class MainForm : Form
             producer2 = new Producer(storage, itemArray);
             pThread2 = new Thread(producer2.Run);
             pThread2.Start();
-            MessageBox.Show("Producer 2 started");
+            lblCoopStatus.Text = "PRODUCING";
         }   
     }
 
@@ -94,7 +94,7 @@ public partial class MainForm : Form
             producer3 = new Producer(storage, itemArray);
             pThread3 = new Thread(producer3.Run);
             pThread3.Start();
-            MessageBox.Show("Producer 3 started");
+            lblCityStatus.Text = "PRODUCING";
         }
     }
 
@@ -107,7 +107,7 @@ public partial class MainForm : Form
     {
         producer1?.Stop(); // if producer1 is not null, call the Stop method to signal the thread to stop
 
-        MessageBox.Show("Producer 1 stopped");
+        lblIcaStatus.Text = "STOP PRODUCING 1";
     }
 
     /// <summary>
@@ -118,7 +118,7 @@ public partial class MainForm : Form
     private void btnStopElProducts_Click(object sender, EventArgs e)
     {
         producer2?.Stop(); // if producer2 is not null, call the Stop method to signal the thread to stop
-        MessageBox.Show("Producer 2 stopped");
+        lblCoopStatus.Text = "STOP PRODUCING 2";
     }
 
     /// <summary>
@@ -129,7 +129,7 @@ public partial class MainForm : Form
     private void btnStopFoodProducts_Click(object sender, EventArgs e)
     {
         producer3?.Stop(); // if producer3 is not null, call the Stop method to signal the thread to stop
-        MessageBox.Show("Producer 3 stopped");
+        lblCityStatus.Text = "STOP PRODUCING 3";
     }
     /// <summary>
     /// Start consumer 1
@@ -146,7 +146,7 @@ public partial class MainForm : Form
 
             cThread1.Start();
 
-            MessageBox.Show("Consumer 1 started");
+            lblIcaStatus.Text = "CONSUMING";
         }
     }
 
@@ -163,7 +163,7 @@ public partial class MainForm : Form
         //xxThread.IsAlive ? "alive" : "dead"));
         consumer1?.Stop();
 
-        MessageBox.Show("Consumer 1 stopped");
+        lblIcaStatus.Text = "STOP CONSUMING";
 
 
     }
@@ -180,14 +180,14 @@ public partial class MainForm : Form
             consumer2 = new Consumer(storage);
             cThread2 = new Thread(consumer2.Run);
             cThread2.Start();
-            MessageBox.Show("Consumer 2 started");
+            lblCoopStatus.Text = "CONSUMING";
         }
     }
 
     private void lstIca_SelectedIndexChanged(object sender, EventArgs e)
     {
-       // lblIcaStatus.Invoke((MethodInvoker)(() => 
-        //lblIcaStatus.Text = xxThread.IsAlive ? "alive" : "dead"));
+       //lblIcaStatus.Invoke((MethodInvoker)(() => 
+       //lblIcaStatus.Text = xxThread.IsAlive ? "alive" : "dead"));
 
     }
 
@@ -199,7 +199,7 @@ public partial class MainForm : Form
     private void btnStopCoop_Click(object sender, EventArgs e)
     {
         consumer2?.Stop();
-        MessageBox.Show("Consumer 2 stopped");
+        lblCoopStatus.Text = "STOP CONSUMING";
     }
 
     /// <summary>
@@ -214,7 +214,7 @@ public partial class MainForm : Form
             consumer3 = new Consumer(storage);
             cThread3 = new Thread(consumer3.Run);
             cThread3.Start();
-            MessageBox.Show("Consumer 3 started");
+            lblCityStatus.Text = "CONSUMING";
         }
     }
 
@@ -226,6 +226,6 @@ public partial class MainForm : Form
     private void btnStopFoods_Click(object sender, EventArgs e)
     {
         consumer3?.Stop();
-        MessageBox.Show("Consumer 3 stopped");
+        lblCityStatus.Text = "STOP CONSUMING";
     }
 }
