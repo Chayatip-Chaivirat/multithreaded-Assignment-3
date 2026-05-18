@@ -30,11 +30,13 @@ namespace Assignment3WinForm
         {
             while (running)
             {
-                int index = random.Next(products.Length); // Randomly select a product from the array
+                int index = random.Next(products.Length);
 
-                Product p = products[index]; // Get the selected product
+                Product p = products[index];
 
-                storage.Produce(p); // Add the product to the storage
+                storage.Produce(p);
+
+                Console.WriteLine($"Produced: {p}");
 
                 Thread.Sleep(1000);
             }

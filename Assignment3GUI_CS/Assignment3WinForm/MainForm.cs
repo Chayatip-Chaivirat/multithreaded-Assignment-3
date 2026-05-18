@@ -73,7 +73,13 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void btnStartElProducts_Click(object sender, EventArgs e)
     {
-
+        if (pThread2 == null || !pThread2.IsAlive)
+        {
+            producer2 = new Producer(storage, itemArray);
+            pThread2 = new Thread(producer2.Run);
+            pThread2.Start();
+            MessageBox.Show("Producer 2 started");
+        }   
     }
 
     /// <summary>
@@ -83,7 +89,13 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void btnStartFoodProducts_Click(object sender, EventArgs e)
     {
-
+        if (pThread3 == null || !pThread3.IsAlive)
+        {
+            producer3 = new Producer(storage, itemArray);
+            pThread3 = new Thread(producer3.Run);
+            pThread3.Start();
+            MessageBox.Show("Producer 3 started");
+        }
     }
 
     /// <summary>
@@ -93,7 +105,7 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void btnStopGenProduct_Click(object sender, EventArgs e)
     {
-        producer1?.Stop();
+        producer1?.Stop(); // if producer1 is not null, call the Stop method to signal the thread to stop
 
         MessageBox.Show("Producer 1 stopped");
     }
@@ -105,7 +117,8 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void btnStopElProducts_Click(object sender, EventArgs e)
     {
-
+        producer2?.Stop(); // if producer2 is not null, call the Stop method to signal the thread to stop
+        MessageBox.Show("Producer 2 stopped");
     }
 
     /// <summary>
@@ -115,6 +128,8 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void btnStopFoodProducts_Click(object sender, EventArgs e)
     {
+        producer3?.Stop(); // if producer3 is not null, call the Stop method to signal the thread to stop
+        MessageBox.Show("Producer 3 stopped");
     }
     /// <summary>
     /// Start consumer 1
@@ -123,7 +138,16 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void btnStartGen_Click(object sender, EventArgs e)
     {
+        if (cThread1 == null || !cThread1.IsAlive)
+        {
+            consumer1 = new Consumer(storage);
 
+            cThread1 = new Thread(consumer1.Run);
+
+            cThread1.Start();
+
+            MessageBox.Show("Consumer 1 started");
+        }
     }
 
     /// <summary>
@@ -133,11 +157,13 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void btnStopGen_Click(object sender, EventArgs e)
     {
-        
+
         //Use the following patter to invoke updating of a control by other threads
         //lblIcaStatus.Invoke((MethodInvoker)(() => lblIcaStatus.Text = 
-               //xxThread.IsAlive ? "alive" : "dead"));
+        //xxThread.IsAlive ? "alive" : "dead"));
+        consumer1?.Stop();
 
+        MessageBox.Show("Consumer 1 stopped");
 
 
     }
@@ -149,7 +175,13 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void btnStartCoop_Click(object sender, EventArgs e)
     {
-
+        if (cThread2 == null || !cThread2.IsAlive)
+        {
+            consumer2 = new Consumer(storage);
+            cThread2 = new Thread(consumer2.Run);
+            cThread2.Start();
+            MessageBox.Show("Consumer 2 started");
+        }
     }
 
     private void lstIca_SelectedIndexChanged(object sender, EventArgs e)
@@ -166,7 +198,9 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void btnStopCoop_Click(object sender, EventArgs e)
     {
-      }
+        consumer2?.Stop();
+        MessageBox.Show("Consumer 2 stopped");
+    }
 
     /// <summary>
     /// Start consumer 3
@@ -175,8 +209,13 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void btnStartFoods_Click(object sender, EventArgs e)
     {
-
-
+        if (cThread3 == null || !cThread3.IsAlive)
+        {
+            consumer3 = new Consumer(storage);
+            cThread3 = new Thread(consumer3.Run);
+            cThread3.Start();
+            MessageBox.Show("Consumer 3 started");
+        }
     }
 
     /// <summary>
@@ -186,6 +225,7 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void btnStopFoods_Click(object sender, EventArgs e)
     {
-
+        consumer3?.Stop();
+        MessageBox.Show("Consumer 3 stopped");
     }
 }

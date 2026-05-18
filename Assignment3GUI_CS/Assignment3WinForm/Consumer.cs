@@ -26,7 +26,9 @@ namespace Assignment3WinForm
         {
             while (running)
             {
-                Product p = storage.Consume(); // Retrieve a product from the storage
+                Product p = storage.Consume();
+
+                Console.WriteLine($"Consumed: {p}");
 
                 Thread.Sleep(1500);
             }
