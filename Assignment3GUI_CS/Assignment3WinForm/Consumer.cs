@@ -26,11 +26,11 @@ namespace Assignment3WinForm
         {
             while (running)
             {
-                Product p = storage.Consume();
+                Product p = storage.Consume(); // Consume a product from storage
 
-                listBox.Invoke((MethodInvoker)(() =>
+                listBox.Invoke((MethodInvoker)(() => // Update the ListBox with the consumed product
                 {
-                    listBox.Items.Add(p.ToString());
+                    listBox.Items.Add(p.ToString()); // Add the consumed product to the ListBox
                 })); // Update the ListBox on the GUI thread    
 
                 Thread.Sleep(1500);
