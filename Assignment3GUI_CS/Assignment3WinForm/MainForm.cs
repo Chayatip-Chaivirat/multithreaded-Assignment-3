@@ -107,7 +107,7 @@ public partial class MainForm : Form
     {
         producer1?.Stop(); // if producer1 is not null, call the Stop method to signal the thread to stop
 
-        lblIcaStatus.Text = "STOP PRODUCING 1";
+        lblIcaStatus.Text = "STOP PRODUCING";
     }
 
     /// <summary>
@@ -118,7 +118,7 @@ public partial class MainForm : Form
     private void btnStopElProducts_Click(object sender, EventArgs e)
     {
         producer2?.Stop(); // if producer2 is not null, call the Stop method to signal the thread to stop
-        lblCoopStatus.Text = "STOP PRODUCING 2";
+        lblCoopStatus.Text = "STOP PRODUCING";
     }
 
     /// <summary>
@@ -129,7 +129,7 @@ public partial class MainForm : Form
     private void btnStopFoodProducts_Click(object sender, EventArgs e)
     {
         producer3?.Stop(); // if producer3 is not null, call the Stop method to signal the thread to stop
-        lblCityStatus.Text = "STOP PRODUCING 3";
+        lblCityStatus.Text = "STOP PRODUCING";
     }
     /// <summary>
     /// Start consumer 1
@@ -146,7 +146,7 @@ public partial class MainForm : Form
 
             cThread1.Start();
 
-            lblIcaStatus.Text = "CONSUMING";
+            lblItems1.Text = "CONSUMING";
         }
     }
 
@@ -163,7 +163,7 @@ public partial class MainForm : Form
         //xxThread.IsAlive ? "alive" : "dead"));
         consumer1?.Stop();
 
-        lblIcaStatus.Text = "STOP CONSUMING";
+        lblItems1.Text = "STOP CONSUMING";
 
 
     }
@@ -180,7 +180,7 @@ public partial class MainForm : Form
             consumer2 = new Consumer(storage);
             cThread2 = new Thread(consumer2.Run);
             cThread2.Start();
-            lblCoopStatus.Text = "CONSUMING";
+            lblItems2.Text = "CONSUMING";
         }
     }
 
@@ -199,7 +199,7 @@ public partial class MainForm : Form
     private void btnStopCoop_Click(object sender, EventArgs e)
     {
         consumer2?.Stop();
-        lblCoopStatus.Text = "STOP CONSUMING";
+        lblItems2.Text = "STOP CONSUMING";
     }
 
     /// <summary>
@@ -214,7 +214,7 @@ public partial class MainForm : Form
             consumer3 = new Consumer(storage);
             cThread3 = new Thread(consumer3.Run);
             cThread3.Start();
-            lblCityStatus.Text = "CONSUMING";
+            lblItems3.Text = "CONSUMING";
         }
     }
 
@@ -226,6 +226,6 @@ public partial class MainForm : Form
     private void btnStopFoods_Click(object sender, EventArgs e)
     {
         consumer3?.Stop();
-        lblCityStatus.Text = "STOP CONSUMING";
+        lblItems3.Text = "STOP CONSUMING";
     }
 }
