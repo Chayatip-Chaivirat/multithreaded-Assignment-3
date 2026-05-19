@@ -146,7 +146,7 @@ public partial class MainForm : Form
 
             cThread1.Start();
 
-            lblItems1.Text = "CONSUMING";
+            lblIcaStatus.Text = "CONSUMING";
         }
     }
 
@@ -163,7 +163,7 @@ public partial class MainForm : Form
         //xxThread.IsAlive ? "alive" : "dead"));
         consumer1?.Stop();
 
-        lstGen.Text = "STOP CONSUMING";
+        lblIcaStatus.Text = "STOP CONSUMING";
 
 
     }
@@ -180,7 +180,7 @@ public partial class MainForm : Form
             consumer2 = new Consumer(storage, lstCoop);
             cThread2 = new Thread(consumer2.Run);
             cThread2.Start();
-            lblItems2.Text = "CONSUMING";
+            lblCoopStatus.Text = "CONSUMING";
         }
     }
 
@@ -199,7 +199,7 @@ public partial class MainForm : Form
     private void btnStopCoop_Click(object sender, EventArgs e)
     {
         consumer2?.Stop();
-        lstCoop.Text = "STOP CONSUMING";
+        lblCoopStatus.Text = "STOP CONSUMING";
     }
 
     /// <summary>
@@ -214,7 +214,7 @@ public partial class MainForm : Form
             consumer3 = new Consumer(storage, lstFood);
             cThread3 = new Thread(consumer3.Run);
             cThread3.Start();
-            lstFood.Text = "CONSUMING";
+            lblCityStatus.Text = "CONSUMING";
         }
     }
 
@@ -226,6 +226,6 @@ public partial class MainForm : Form
     private void btnStopFoods_Click(object sender, EventArgs e)
     {
         consumer3?.Stop();
-        lstFood.Text = "STOP CONSUMING";
+        lblCityStatus.Text = "STOP CONSUMING";
     }
 }
