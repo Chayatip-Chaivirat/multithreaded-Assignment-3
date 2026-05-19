@@ -13,7 +13,7 @@ namespace Assignment3WinForm
 
         private bool running = true;
 
-        private Random random = new Random();
+        private static Random random = new Random(); // Static Random instance to avoid issues with multiple producers creating their own Random instances
 
         public Producer(Storage storage, Product[] products)
         {

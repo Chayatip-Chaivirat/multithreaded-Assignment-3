@@ -23,6 +23,8 @@ namespace Assignment3WinForm
 
         private Mutex mutex;
 
+        private static readonly object lockObj = new object(); // Lock object for synchronizing access to count
+
         public Storage()
         {
             empty = new Semaphore(BufferSize, BufferSize);
@@ -66,7 +68,13 @@ namespace Assignment3WinForm
 
         public int Count
         {
-            get { return count; }
+            get 
+            { 
+                lock (lockObj) // Lock to ensure thread safety when accessing count
+                {
+                    return count;
+                }
+            }
         }
     }
 }

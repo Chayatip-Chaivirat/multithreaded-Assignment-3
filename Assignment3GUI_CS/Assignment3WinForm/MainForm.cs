@@ -62,6 +62,8 @@ public partial class MainForm : Form
 
             pThread1.Start();
 
+            btnStopScan.Enabled = true; // Enable the stop button for this producer
+
             lblStatusScan.Text = "PRODUCING";
         }
     }
@@ -78,6 +80,7 @@ public partial class MainForm : Form
             producer2 = new Producer(storage, itemArray);
             pThread2 = new Thread(producer2.Run);
             pThread2.Start();
+            btnStopArla.Enabled = true;
             lblStatusArla.Text = "PRODUCING";
         }   
     }
@@ -94,6 +97,7 @@ public partial class MainForm : Form
             producer3 = new Producer(storage, itemArray);
             pThread3 = new Thread(producer3.Run);
             pThread3.Start();
+            btnStopAxfood.Enabled = true;
             lblStatusAxfood.Text = "PRODUCING";
         }
     }
@@ -146,6 +150,8 @@ public partial class MainForm : Form
 
             cThread1.Start();
 
+            btnStopIca.Enabled = true;
+
             lblIcaStatus.Text = "CONSUMING";
         }
     }
@@ -180,6 +186,7 @@ public partial class MainForm : Form
             consumer2 = new Consumer(storage, lstCoop);
             cThread2 = new Thread(consumer2.Run);
             cThread2.Start();
+            btnStopCoop.Enabled = true;
             lblCoopStatus.Text = "CONSUMING";
         }
     }
@@ -214,6 +221,7 @@ public partial class MainForm : Form
             consumer3 = new Consumer(storage, lstFood);
             cThread3 = new Thread(consumer3.Run);
             cThread3.Start();
+            btnStopCity.Enabled = true;
             lblCityStatus.Text = "CONSUMING";
         }
     }
