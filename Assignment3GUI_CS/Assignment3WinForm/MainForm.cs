@@ -140,7 +140,7 @@ public partial class MainForm : Form
     {
         if (cThread1 == null || !cThread1.IsAlive)
         {
-            consumer1 = new Consumer(storage);
+            consumer1 = new Consumer(storage, lstGen);
 
             cThread1 = new Thread(consumer1.Run);
 
@@ -177,7 +177,7 @@ public partial class MainForm : Form
     {
         if (cThread2 == null || !cThread2.IsAlive)
         {
-            consumer2 = new Consumer(storage);
+            consumer2 = new Consumer(storage, lstFood);
             cThread2 = new Thread(consumer2.Run);
             cThread2.Start();
             lblItems2.Text = "CONSUMING";
@@ -211,7 +211,7 @@ public partial class MainForm : Form
     {
         if (cThread3 == null || !cThread3.IsAlive)
         {
-            consumer3 = new Consumer(storage);
+            consumer3 = new Consumer(storage, lstCoop);
             cThread3 = new Thread(consumer3.Run);
             cThread3.Start();
             lblItems3.Text = "CONSUMING";
