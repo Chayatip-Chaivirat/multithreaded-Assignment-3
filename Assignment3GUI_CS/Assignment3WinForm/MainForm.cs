@@ -256,7 +256,10 @@ public partial class MainForm : Form
     {
         progressItems.Value = storage.Count;
 
-        lblItemsProduced.Text =
-            $"{storage.Count}/{storage.MaxCapacity}";
+        lblItemsProduced.Text = $"{storage.Count}/{storage.MaxCapacity}";
+
+        lblItems1.Text = $"{lstGen.Items.Count} items";
+        lblItems2.Text = $"{lstCoop.Items.Count} items";
+        lblItems3.Text = $"{lstFood.Items.Count} items";
     }
 }
