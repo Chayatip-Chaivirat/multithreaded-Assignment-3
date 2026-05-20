@@ -12,7 +12,7 @@ namespace Assignment3WinForm
     {
         private const int BufferSize = 30;
 
-        private Product[] buffer = new Product[BufferSize]; 
+        private Product[] buffer = new Product[BufferSize];  // Buffer to hold products
 
         private int inPos = 0;
         private int outPos = 0;
