@@ -14,21 +14,21 @@ namespace Assignment3WinForm
 
         private Product[] buffer = new Product[BufferSize];  // Buffer to hold products
 
-        private int inPos = 0;
-        private int outPos = 0;
-        private int count = 0;
+        private int inPos = 0; // Position for the next produced item
+        private int outPos = 0; // Position for the next consumed item
+        private int count = 0; // Count of items currently in the buffer
 
-        private Semaphore empty;
-        private Semaphore full;
+        private Semaphore empty; // Semaphore to track empty slots in the buffer
+        private Semaphore full; // Semaphore to track full slots in the buffer
 
-        private Mutex mutex;
+        private Mutex mutex; // Mutex to protect access to the buffer and count
 
         private static readonly object lockObj = new object(); // Lock object for synchronizing access to count
 
         public Storage()
         {
-            empty = new Semaphore(BufferSize, BufferSize);
-            full = new Semaphore(0, BufferSize);
+            empty = new Semaphore(BufferSize, BufferSize); // Initialize the empty semaphore with the buffer size, indicating all slots are initially empty
+            full = new Semaphore(0, BufferSize); // Initialize the full semaphore with 0, indicating no items are initially produced
 
             mutex = new Mutex();
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,7 +37,7 @@ namespace Assignment3WinForm
 
                 storage.Produce(p);
 
-                Console.WriteLine($"Produced: {p}");
+                Debug.WriteLine($"Produced: {p}");
 
                 Thread.Sleep(1000);
             }
