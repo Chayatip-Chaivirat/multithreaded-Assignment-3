@@ -144,7 +144,7 @@ public partial class MainForm : Form
     {
         if (cThread1 == null || !cThread1.IsAlive)
         {
-            consumer1 = new Consumer(storage, lstGen);
+            consumer1 = new Consumer(storage, lstGen, 12);
 
             cThread1 = new Thread(consumer1.Run);
 
@@ -165,8 +165,8 @@ public partial class MainForm : Form
     {
 
         //Use the following patter to invoke updating of a control by other threads
-        //lblIcaStatus.Invoke((MethodInvoker)(() => lblIcaStatus.Text = 
-        //xxThread.IsAlive ? "alive" : "dead"));
+        lblIcaStatus.Invoke((MethodInvoker)(() => lblIcaStatus.Text =
+        cThread1.IsAlive ? "alive" : "dead"));
         consumer1?.Stop();
 
         lblIcaStatus.Text = "STOP CONSUMING";
@@ -183,7 +183,7 @@ public partial class MainForm : Form
     {
         if (cThread2 == null || !cThread2.IsAlive)
         {
-            consumer2 = new Consumer(storage, lstCoop);
+            consumer2 = new Consumer(storage, lstCoop,15);
             cThread2 = new Thread(consumer2.Run);
             cThread2.Start();
             btnStopCoop.Enabled = true;
@@ -193,8 +193,8 @@ public partial class MainForm : Form
 
     private void lstIca_SelectedIndexChanged(object sender, EventArgs e)
     {
-       //lblIcaStatus.Invoke((MethodInvoker)(() => 
-       //lblIcaStatus.Text = xxThread.IsAlive ? "alive" : "dead"));
+        lblIcaStatus.Invoke((MethodInvoker)(() =>
+        lblIcaStatus.Text = cThread1.IsAlive ? "alive" : "dead"));
 
     }
 
@@ -205,6 +205,8 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void btnStopCoop_Click(object sender, EventArgs e)
     {
+        lblCoopStatus.Invoke((MethodInvoker)(() => lblCoopStatus.Text =
+        cThread2.IsAlive ? "alive" : "dead"));
         consumer2?.Stop();
         lblCoopStatus.Text = "STOP CONSUMING";
     }
@@ -218,7 +220,7 @@ public partial class MainForm : Form
     {
         if (cThread3 == null || !cThread3.IsAlive)
         {
-            consumer3 = new Consumer(storage, lstFood);
+            consumer3 = new Consumer(storage, lstFood,10);
             cThread3 = new Thread(consumer3.Run);
             cThread3.Start();
             btnStopCity.Enabled = true;
@@ -233,6 +235,8 @@ public partial class MainForm : Form
     /// <param name="e"></param>
     private void btnStopFoods_Click(object sender, EventArgs e)
     {
+        lblCityStatus.Invoke((MethodInvoker)(() => lblCityStatus.Text =
+        cThread3.IsAlive ? "alive" : "dead"));
         consumer3?.Stop();
         lblCityStatus.Text = "STOP CONSUMING";
     }

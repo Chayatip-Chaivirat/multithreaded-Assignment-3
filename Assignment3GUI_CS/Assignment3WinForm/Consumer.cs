@@ -11,10 +11,13 @@ namespace Assignment3WinForm
 
         private ListBox listBox;
 
-        public Consumer(Storage storage, ListBox listBox)
+        private int maxLoad;   
+
+        public Consumer(Storage storage, ListBox listBox, int maxLoad)
         {
             this.storage = storage;
             this.listBox = listBox; // Store the ListBox reference for GUI updates
+            this.maxLoad = maxLoad;
         }
 
         public void Stop()
