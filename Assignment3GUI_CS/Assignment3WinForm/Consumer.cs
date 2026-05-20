@@ -30,27 +30,40 @@ namespace Assignment3WinForm
 
         public void Run()
         {
+            int currentLoad = 0;
+
             while (running)
             {
-                // Stop only if max load reached AND continue load is off
-                if (maxLoad <= 0 && !continueLoad)
-                {
-                    break;
-                }
-
                 Product p = storage.Consume();
 
-                listBox.Invoke((MethodInvoker)(() => // Add the consumed product to the list box
+                listBox.Invoke((MethodInvoker)(() =>
                 {
-                    listBox.Items.Add(p.ToString()); 
+                    listBox.Items.Add(p.ToString());
                 }));
 
-                // Only decrease if not continue load, otherwise we want to keep consuming even if max load is reached
-                if (!continueLoad)
+                currentLoad++;
+
+                // Truck full
+                if (currentLoad >= maxLoad)
                 {
-                    maxLoad--;
+                    // Wait configured interval
+                    Thread.Sleep(1500);
+
+                    // Stop loading if Continue load is OFF
+                    if (!continueLoad)
+                    {
+                        break;
+                    }
+
+                    // Continue load ON:
+                    // clear truck and load again
+                    listBox.Invoke((MethodInvoker)(() =>
+                    {
+                        listBox.Items.Clear();
+                    }));
+
+                    currentLoad = 0;
                 }
-                Thread.Sleep(1500);
             }
         }
     }
