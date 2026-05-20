@@ -35,6 +35,8 @@ public partial class MainForm : Form
     // Product array to be used by producers
     private Product[] itemArray;
 
+    private System.Windows.Forms.Timer uiTimer; // Timer to update the UI periodically
+
     /// <summary>
     /// Constructor.
     /// </summary>
@@ -42,8 +44,16 @@ public partial class MainForm : Form
     {
         InitializeComponent();
 
-        storage = new Storage(); // Create a new storage instance
-        itemArray = Product.CreateTestProducts(); // Initialize the product array
+        storage = new Storage();
+        itemArray = Product.CreateTestProducts();
+
+        progressItems.Maximum = storage.MaxCapacity;
+
+        uiTimer = new System.Windows.Forms.Timer();
+        uiTimer.Interval = 500;
+
+        uiTimer.Tick += UpdateStorageUI;
+        uiTimer.Start();
     }
 
     /// <summary>
@@ -144,7 +154,7 @@ public partial class MainForm : Form
     {
         if (cThread1 == null || !cThread1.IsAlive)
         {
-            consumer1 = new Consumer(storage, lstGen, 12);
+            consumer1 = new Consumer(storage, lstGen, 12, chkIcaCont.Checked);
 
             cThread1 = new Thread(consumer1.Run);
 
@@ -183,7 +193,7 @@ public partial class MainForm : Form
     {
         if (cThread2 == null || !cThread2.IsAlive)
         {
-            consumer2 = new Consumer(storage, lstCoop,15);
+            consumer2 = new Consumer(storage, lstCoop,15, chkCoopCont.Checked);
             cThread2 = new Thread(consumer2.Run);
             cThread2.Start();
             btnStopCoop.Enabled = true;
@@ -220,7 +230,7 @@ public partial class MainForm : Form
     {
         if (cThread3 == null || !cThread3.IsAlive)
         {
-            consumer3 = new Consumer(storage, lstFood,10);
+            consumer3 = new Consumer(storage, lstFood,10, chkCityCont.Checked);
             cThread3 = new Thread(consumer3.Run);
             cThread3.Start();
             btnStopCity.Enabled = true;
@@ -239,5 +249,14 @@ public partial class MainForm : Form
         cThread3.IsAlive ? "alive" : "dead"));
         consumer3?.Stop();
         lblCityStatus.Text = "STOP CONSUMING";
+    }
+
+    /// Method to update the UI with the current storage count and capacity
+    private void UpdateStorageUI(object sender, EventArgs e)
+    {
+        progressItems.Value = storage.Count;
+
+        lblItemsProduced.Text =
+            $"{storage.Count}/{storage.MaxCapacity}";
     }
 }

@@ -11,13 +11,16 @@ namespace Assignment3WinForm
 
         private ListBox listBox;
 
-        private int maxLoad;   
+        private int maxLoad;
 
-        public Consumer(Storage storage, ListBox listBox, int maxLoad)
+        private bool continueLoad;
+
+        public Consumer(Storage storage,ListBox listBox,int maxLoad,bool continueLoad)
         {
             this.storage = storage;
-            this.listBox = listBox; // Store the ListBox reference for GUI updates
+            this.listBox = listBox;
             this.maxLoad = maxLoad;
+            this.continueLoad = continueLoad;
         }
 
         public void Stop()
@@ -29,23 +32,26 @@ namespace Assignment3WinForm
         {
             while (running)
             {
-                if (maxLoad <= 0) // Check if the maximum load has been reached
+                // Stop only if max load reached AND continue load is off
+                if (maxLoad <= 0 && !continueLoad)
                 {
-                    break; // Exit the loop if the maximum load is exceeded
+                    break;
                 }
-                else // If the maximum load is not exceeded, consume a product from storage
+
+                Product p = storage.Consume();
+
+                listBox.Invoke((MethodInvoker)(() => // Add the consumed product to the list box
                 {
-                    Product p = storage.Consume(); // Consume a product from storage
-                    listBox.Invoke((MethodInvoker)(() => // Update the ListBox with the consumed product
-                    {
-                        listBox.Items.Add(p.ToString()); // Add the consumed product to the ListBox
+                    listBox.Items.Add(p.ToString()); 
+                }));
 
-                    })); // Update the ListBox on the GUI thread    
-                    maxLoad--; // Decrease the maximum load
+                // Only decrease if not continue load, otherwise we want to keep consuming even if max load is reached
+                if (!continueLoad)
+                {
+                    maxLoad--;
                 }
-            }
-
                 Thread.Sleep(1500);
             }
         }
+    }
     }

@@ -68,13 +68,19 @@ namespace Assignment3WinForm
 
         public int Count
         {
-            get 
-            { 
-                lock (lockObj) // Lock to ensure thread safety when accessing count
-                {
-                    return count;
-                }
+            get
+            {
+                mutex.WaitOne(); // Enter critical section to safely read the count
+                int current = count; // Store the current count in a local variable
+                mutex.ReleaseMutex(); // Exit critical section
+
+                return current; // Return the current count of items in the buffer
             }
+        }
+
+        public int MaxCapacity
+        {
+            get { return BufferSize; }
         }
     }
 }
