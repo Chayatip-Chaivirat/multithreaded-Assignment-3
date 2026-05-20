@@ -31,10 +31,15 @@ namespace Assignment3WinForm
             {
                 Product p = storage.Consume(); // Consume a product from storage
 
-                listBox.Invoke((MethodInvoker)(() => // Update the ListBox with the consumed product
+                if (p != null && maxLoad > 0) // Check if the product is valid and the maximum load is not exceeded
                 {
-                    listBox.Items.Add(p.ToString()); // Add the consumed product to the ListBox
-                })); // Update the ListBox on the GUI thread    
+                    listBox.Invoke((MethodInvoker)(() => // Update the ListBox with the consumed product
+                    {
+                        listBox.Items.Add(p.ToString()); // Add the consumed product to the ListBox
+
+                    })); // Update the ListBox on the GUI thread    
+                    maxLoad--; // Decrease the maximum load
+                }
 
                 Thread.Sleep(1500);
             }
